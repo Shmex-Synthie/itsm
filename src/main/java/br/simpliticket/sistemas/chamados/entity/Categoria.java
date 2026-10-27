@@ -25,7 +25,7 @@ public class Categoria {
 
     public Categoria(String nome, String descricao) {
         this.nome = nome;
-        this.email = descricao;
+        this.descricao = descricao;
     }
 
     public Long getId(){return id;}
