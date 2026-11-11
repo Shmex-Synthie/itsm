@@ -1,14 +1,12 @@
 package br.simpliticket.sistemas.chamados.web;
 
+import br.simpliticket.sistemas.chamados.repository.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
-import br.simpliticket.sistemas.chamados.repository.ClienteRepository;
-import br.simpliticket.sistemas.chamados.repository.TecnicoRepository;
-import br.simpliticket.sistemas.chamados.repository.ChamadoRepository;
-import br.simpliticket.sistemas.chamados.repository.CategoriaRepository;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
+
 public class DashboardController {
 
     private final ClienteRepository clienteRepository;
@@ -32,12 +30,10 @@ public class DashboardController {
         model.addAttribute("totalClientes", clienteRepository.count());
         model.addAttribute("totalTecnicos", tecnicoRepository.count());
         model.addAttribute("categorias", categoriaRepository.count());
-
         return "dashboard";
     }
 
     @GetMapping("/sobre")
-    public String sobre() {
-        return "sobre";
-    }
+    public String sobre() {return "sobre";}
+
 }
