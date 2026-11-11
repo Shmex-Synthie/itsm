@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <h1 th:text="${nomeSistema}">Nome do sistema</h1>
+</head>
+
+<body>
+    <p th:text="${mensagem}">
+        Mensagem de boas vindas
+    </p>
+
+    <p>
+    Total de chamados:
+    <span th:text="${totalChamados}">0</span>
+    </p>
+
+    <p>
+    Clientes:
+    <span th:text="${totalClientes}">0</span>
+    </p>
+
+    <p>
+    Técnicos totais:
+    <span th:text="${totalTecnicos}">0</span>
+    </p>
+
+    <p>
+    Categorias:
+    <span th:text="${categorias}">0</span>
+    </p>
+
+</body>
+
+</html>
