@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Formulário de cliente - SimpliTicket</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: menu}"></div>
+<main class="page-content">
+<div th:replace="~{fragments/nav :: mensagens}"></div>
+<h1 th:text="${titulo}">Cliente</h1>
+<form method="post" th:action="@{${acao}}" th:object="${form}">
+<p>
+    <label>Nome: <input type="text" th:field="*{nome}" required maxlength="100"></label>
+    <small th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></small>
+</p>
+<p>
+    <label>E-mail: <input type="email" th:field="*{email}" required maxlength="120"></label>
+    <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+</p>
+<p>
+    <label>Telefone: <input type="tel" th:field="*{telefone}" maxlength="20"></label>
+    <small th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></small>
+</p>
+<button type="submit">Salvar</button> <a class="button button-secondary" th:href="@{/app/clientes}">Cancelar</a>
+</form>
+</main>
+</body>
+</html>

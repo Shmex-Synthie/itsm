@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chamados</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: menu}"></div>
+<main class="page-content">
+<div th:replace="~{fragments/nav :: mensagens}"></div>
+<h1>Chamados</h1>
+<p class="page-action"><a class="button" th:href="@{/app/chamados/novo}">Novo chamado</a></p>
+<h2>Filtros</h2>
+<form method="get" th:action="@{/app/chamados}">
+<label>Status: <select name="status"><option value="">Todos</option><option th:each="s : ${statusDisponiveis}" th:value="${s}" th:text="${s}" th:selected="${s == statusFiltro}"></option></select></label>
+<label>Prioridade: <select name="prioridade"><option value="">Todas</option><option th:each="p : ${prioridades}" th:value="${p}" th:text="${p}" th:selected="${p == prioridadeFiltro}"></option></select></label>
+<label>Cliente: <select name="clienteId"><option value="">Todos</option><option th:each="c : ${clientes}" th:value="${c.id}" th:text="${c.nome}" th:selected="${c.id == clienteFiltro}"></option></select></label> <div class="filter-actions"><button type="submit">Filtrar</button><a class="button button-secondary" th:href="@{/app/chamados}">Limpar</a></div>
+</form>
+<table border="1" cellpadding="6">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Prioridade</th>
+            <th>Status</th>
+            <th>Cliente ID</th>
+            <th>Data de abertura</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="c : ${pagina.content}">
+            <td th:text="${c.id}"></td>
+            <td th:text="${c.titulo}"></td>
+            <td th:text="${c.prioridade}"></td>
+            <td th:text="${c.status}"></td>
+            <td th:text="${c.clienteId}"></td>
+            <td th:text="${c.dataAbertura}"></td>
+            <td><a class="table-action" th:href="@{/app/chamados/{id}(id=${c.id})}">Detalhes</a></td>
+        </tr>
+        <tr th:if="${pagina.empty}">
+            <td colspan="7">Nenhum chamado encontrado.</td>
+        </tr>
+    </tbody>
+</table>
+<p th:if="${pagina.totalPages > 0}">Página <span th:text="${pagina.number + 1}"></span> de <span th:text="${pagina.totalPages}"></span> (total: <span th:text="${pagina.totalElements}"></span>)</p>
+<p><a th:if="${pagina.hasPrevious()}" th:href="@{/app/chamados(pagina=${pagina.number - 1},status=${statusFiltro},prioridade=${prioridadeFiltro},clienteId=${clienteFiltro})}">Anterior</a> <a th:if="${pagina.hasNext()}" th:href="@{/app/chamados(pagina=${pagina.number + 1},status=${statusFiltro},prioridade=${prioridadeFiltro},clienteId=${clienteFiltro})}">Próxima</a></p>
+</main>
+</body>
+</html>
