@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Formulário de chamado</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: menu}"></div>
+<main class="page-content">
+<div th:replace="~{fragments/nav :: mensagens}"></div>
+<h1 th:text="${titulo}">Chamado</h1>
+<p th:if="${#lists.isEmpty(clientes) or #lists.isEmpty(categorias)}">Antes de abrir um chamado, cadastre pelo menos um <a th:href="@{/app/clientes/novo}">cliente</a> e uma <a th:href="@{/app/categorias/nova}">categoria</a>.</p>
+<form method="post" th:action="@{${acao}}" th:object="${form}">
+<p>
+    <label>Título: <input type="text" th:field="*{titulo}" maxlength="150" required></label>
+    <small th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></small>
+</p>
+<p>
+    <label>Descrição: <textarea th:field="*{descricao}" maxlength="2000" required></textarea></label>
+    <small th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></small>
+</p>
+<p>
+    <label>Prioridade: <select th:field="*{prioridade}" required><option th:each="p : ${prioridades}" th:value="${p}" th:text="${p}"></option></select></label>
+    <small th:if="${#fields.hasErrors('prioridade')}" th:errors="*{prioridade}"></small>
+</p>
+<p>
+    <label>Cliente: <select th:field="*{clienteId}" required><option value="">Selecione</option><option th:each="c : ${clientes}" th:value="${c.id}" th:text="${c.nome}"></option></select></label>
+    <small th:if="${#fields.hasErrors('clienteId')}" th:errors="*{clienteId}"></small>
+</p>
+<p>
+    <label>Categoria: <select th:field="*{categoriaId}" required><option value="">Selecione</option><option th:each="c : ${categorias}" th:value="${c.id}" th:text="${c.nome}"></option></select></label>
+    <small th:if="${#fields.hasErrors('categoriaId')}" th:errors="*{categoriaId}"></small>
+</p>
+<p><label>Técnico (opcional): <select th:field="*{tecnicoId}"><option value="">Não atribuir</option><option th:each="t : ${tecnicos}" th:value="${t.id}" th:text="${t.nome}"></option></select></label></p>
+<button type="submit" th:disabled="${#lists.isEmpty(clientes) or #lists.isEmpty(categorias)}">Salvar</button> <a class="button button-secondary" th:href="@{/app/chamados}">Cancelar</a>
+</form>
+</main>
+</body>
+</html>

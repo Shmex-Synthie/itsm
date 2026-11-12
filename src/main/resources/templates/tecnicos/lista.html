@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Técnicos - SimpliTicket</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: menu}"></div>
+<main class="page-content">
+<div th:replace="~{fragments/nav :: mensagens}"></div>
+<h1>Técnicos</h1>
+<p class="page-action"><a class="button" th:href="@{/app/tecnicos/novo}">Novo técnico</a></p>
+<table border="1" cellpadding="6">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>E-mail</th>
+            <th>Perfil</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="tecnico : ${tecnicos}">
+            <td th:text="${tecnico.id}"></td>
+            <td th:text="${tecnico.nome}"></td>
+            <td th:text="${tecnico.email}"></td>
+            <td th:text="${tecnico.perfil}"></td>
+            <td><a class="table-action" th:href="@{/app/tecnicos/{id}/editar(id=${tecnico.id})}">Editar</a></td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(tecnicos)}">
+            <td colspan="5">Nenhum técnico cadastrado.</td>
+        </tr>
+    </tbody>
+</table>
+</main>
+</body>
+</html>

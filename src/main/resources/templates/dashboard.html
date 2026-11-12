@@ -1,37 +1,23 @@
 <!DOCTYPE html>
-<html lang="pt-br"
-      xmlns:th="http://www.thymeleaf.org">
-
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <h1 th:text="${nomeSistema}">Nome do sistema</h1>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard - SimpliTicket</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-
 <body>
-    <p th:text="${mensagem}">
-        Mensagem de boas vindas
-    </p>
-
-    <p>
-    Total de chamados:
-    <span th:text="${totalChamados}">0</span>
-    </p>
-
-    <p>
-    Clientes:
-    <span th:text="${totalClientes}">0</span>
-    </p>
-
-    <p>
-    Técnicos totais:
-    <span th:text="${totalTecnicos}">0</span>
-    </p>
-
-    <p>
-    Categorias:
-    <span th:text="${categorias}">0</span>
-    </p>
-
+<div th:replace="~{fragments/nav :: menu}"></div>
+<main class="page-content">
+<div th:replace="~{fragments/nav :: mensagens}"></div>
+<h1 th:text="${nomeSistema}">SimpliTicket</h1>
+<p th:text="${mensagem}">Bem-vindo.</p>
+<ul class="dashboard-stats">
+    <li>Total de chamados: <strong th:text="${totalChamados}">0</strong></li>
+    <li>Clientes: <strong th:text="${totalClientes}">0</strong></li>
+    <li>Técnicos: <strong th:text="${totalTecnicos}">0</strong></li>
+    <li>Categorias: <strong th:text="${categorias}">0</strong></li>
+</ul>
+</main>
 </body>
-
 </html>

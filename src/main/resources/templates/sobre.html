@@ -1,18 +1,17 @@
 <!DOCTYPE html>
-<html lang="pt-br"
-      xmlns:th="http://www.thymeleaf.org">
-
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Sobre o SimpliTicket</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sobre - SimpliTicket</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-
 <body>
-    <h1>Lorem ipsum dolor sit amet</h1>
-
-    <p th:text="'sistema que eu fiz pra faculdade seila'">
-        Texto original
-    </p>
+<div th:replace="~{fragments/nav :: menu}"></div>
+<main class="page-content">
+<h1>Sobre o SimpliTicket</h1>
+<p>O SimpliTicket é um sistema de gerenciamento de chamados de suporte.</p>
+<p><a th:href="@{/}">Voltar ao Dashboard</a></p>
+</main>
 </body>
-
 </html>

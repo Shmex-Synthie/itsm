@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Categorias</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: menu}"></div>
+<main class="page-content">
+<div th:replace="~{fragments/nav :: mensagens}"></div>
+<h1>Categorias</h1>
+<p class="page-action"><a class="button" th:href="@{/app/categorias/nova}">Nova categoria</a></p>
+<table border="1" cellpadding="6">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="categoria : ${categorias}">
+            <td th:text="${categoria.id}"></td>
+            <td th:text="${categoria.nome}"></td>
+            <td th:text="${categoria.descricao}"></td>
+            <td><a class="table-action" th:href="@{/app/categorias/{id}/editar(id=${categoria.id})}">Editar</a></td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(categorias)}">
+            <td colspan="4">Nenhuma categoria cadastrada.</td>
+        </tr>
+    </tbody>
+</table>
+</main>
+</body>
+</html>
