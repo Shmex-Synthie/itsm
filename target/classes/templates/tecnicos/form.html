@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Formulário de técnico - SimpliTicket</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: menu}"></div>
+<main class="page-content">
+<div th:replace="~{fragments/nav :: mensagens}"></div>
+<h1 th:text="${titulo}">Técnico</h1>
+<form method="post" th:action="@{${acao}}" th:object="${form}">
+<p>
+    <label>Nome: <input type="text" th:field="*{nome}" maxlength="100" required></label>
+    <small th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></small>
+</p>
+<p>
+    <label>E-mail: <input type="email" th:field="*{email}" maxlength="120" required></label>
+    <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+</p>
+<p>
+    <label>Perfil: <select th:field="*{perfil}" required><option value="">Selecione</option><option th:each="perfil : ${perfis}" th:value="${perfil}" th:text="${perfil}"></option></select></label>
+    <small th:if="${#fields.hasErrors('perfil')}" th:errors="*{perfil}"></small>
+</p>
+<button type="submit">Salvar</button> <a class="button button-secondary" th:href="@{/app/tecnicos}">Cancelar</a>
+</form>
+</main>
+</body>
+</html>

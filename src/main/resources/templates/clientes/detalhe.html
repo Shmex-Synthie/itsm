@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Detalhes do cliente - SimpliTicket</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: menu}"></div>
+<main class="page-content">
+<div th:replace="~{fragments/nav :: mensagens}"></div>
+<h1>Detalhes do cliente</h1>
+<p><strong>ID:</strong> <span th:text="${cliente.id}"></span></p>
+<p><strong>Nome:</strong> <span th:text="${cliente.nome}"></span></p>
+<p><strong>E-mail:</strong> <span th:text="${cliente.email}"></span></p>
+<p><strong>Telefone:</strong> <span th:text="${cliente.telefone}"></span></p>
+<p><a th:href="@{/app/clientes/{id}/editar(id=${cliente.id})}">Editar cliente</a> | <a th:href="@{/app/chamados(clienteId=${cliente.id})}">Ver chamados do cliente</a> | <a th:href="@{/app/chamados/novo(clienteId=${cliente.id})}">Abrir chamado para este cliente</a> | <a th:href="@{/app/clientes}">Voltar</a></p>
+</main>
+</body>
+</html>

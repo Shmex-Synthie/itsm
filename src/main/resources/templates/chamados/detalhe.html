@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Detalhes do chamado</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: menu}"></div>
+<main class="page-content">
+<div th:replace="~{fragments/nav :: mensagens}"></div>
+<h1>Detalhes do chamado #<span th:text="${detalhe.chamado.id}"></span></h1>
+<p><strong>Título:</strong> <span th:text="${detalhe.chamado.titulo}"></span></p>
+<p><strong>Descrição:</strong> <span th:text="${detalhe.chamado.descricao}"></span></p>
+<p><strong>Prioridade:</strong> <span th:text="${detalhe.chamado.prioridade}"></span></p>
+<p><strong>Status:</strong> <span th:text="${detalhe.chamado.status}"></span></p>
+<p><strong>Cliente:</strong> <a th:href="@{/app/clientes/{id}(id=${detalhe.chamado.clienteId})}" th:text="${detalhe.chamado.clienteId}"></a></p>
+<p><strong>Categoria ID:</strong> <span th:text="${detalhe.chamado.categoriaId}"></span></p>
+<p><strong>Técnico ID:</strong> <span th:text="${detalhe.chamado.tecnicoId ?: 'Não atribuído'}"></span></p>
+<p><strong>Abertura:</strong> <span th:text="${detalhe.chamado.dataAbertura}"></span></p>
+<p><strong>Fechamento:</strong> <span th:text="${detalhe.chamado.dataFechamento ?: '-'}"></span></p>
+<p><a th:if="${detalhe.chamado.status.name() != 'FECHADO'}" th:href="@{/app/chamados/{id}/editar(id=${detalhe.chamado.id})}">Editar chamado</a> | <a th:href="@{/app/chamados}">Voltar à lista</a></p>
+<section th:if="${!#lists.isEmpty(transicoes)}">
+    <h2>Alterar status</h2>
+    <form method="post" th:action="@{/app/chamados/{id}/status(id=${detalhe.chamado.id})}">
+    <label>Novo status: <select name="status" required><option th:each="s : ${transicoes}" th:value="${s}" th:text="${s}"></option></select></label> <button type="submit">Atualizar status</button>
+    </form>
+</section>
+<section th:if="${detalhe.chamado.status.name() != 'FECHADO'}">
+    <h2>Atribuir técnico</h2>
+    <form method="post" th:action="@{/app/chamados/{id}/tecnico(id=${detalhe.chamado.id})}">
+    <label>Técnico: <select name="tecnicoId" required><option value="">Selecione</option><option th:each="t : ${tecnicos}" th:value="${t.id}" th:text="${t.nome}" th:selected="${t.id == detalhe.chamado.tecnicoId}"></option></select></label> <button type="submit">Atribuir</button>
+    </form>
+</section>
+<section>
+    <h2>Comentários</h2>
+    <ul>
+        <li th:each="c : ${detalhe.comentarios}"><strong th:text="${c.autor}"></strong> (<span th:text="${c.data}"></span>): <span th:text="${c.texto}"></span></li>
+        <li th:if="${#lists.isEmpty(detalhe.comentarios)}">Nenhum comentário.</li>
+    </ul>
+    <form method="post" th:action="@{/app/chamados/{id}/comentarios(id=${detalhe.chamado.id})}" th:object="${comentarioForm}">
+    <p><label>Seu nome: <input type="text" th:field="*{autor}" maxlength="120" required></label></p>
+    <p><label>Comentário: <textarea th:field="*{texto}" maxlength="2000" required></textarea></label></p>
+    <button type="submit">Adicionar comentário</button>
+    </form>
+</section>
+<section>
+    <h2>Histórico de status</h2>
+    <ul>
+        <li th:each="h : ${detalhe.historico}"><span th:text="${h.data}"></span>: <span th:text="${h.statusAnterior}"></span> → <span th:text="${h.statusNovo}"></span></li>
+        <li th:if="${#lists.isEmpty(detalhe.historico)}">Nenhuma alteração registrada.</li>
+    </ul>
+</section>
+</main>
+</body>
+</html>

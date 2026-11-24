@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Limite temporário de acessos | SimpliTicket</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .limite-painel { max-width: 720px; margin: 42px auto; padding: 36px;
+            background: var(--superficie); border: 1px solid var(--borda);
+            border-left: 4px solid var(--primaria); border-radius: var(--raio);
+            box-shadow: var(--sombra); }
+        .limite-codigo { color: var(--primaria-hover); font-size: .95rem;
+            font-weight: 750; letter-spacing: .06em; }
+        .limite-painel h1 { margin: 12px 0 18px; }
+        .limite-painel p { color: var(--texto-suave); }
+        .limite-tempo { color: var(--texto); font-weight: 700; }
+        .limite-acoes { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
+        @media (max-width: 600px) { .limite-painel { padding: 24px; margin: 20px auto; } }
+    </style>
+</head>
+<body>
+    <div th:replace="~{fragments/nav :: menu}"></div>
+    <main class="page-content">
+        <section class="limite-painel" role="alert" aria-labelledby="titulo-limite">
+            <div class="limite-codigo">HTTP 429 · LIMITE DE ACESSOS</div>
+            <h1 id="titulo-limite">Muitas solicitações em pouco tempo</h1>
+            <p>Para manter o SimpliTicket estável, a consulta de chamados foi temporariamente limitada.</p>
+            <p>Tente acessar a listagem novamente em aproximadamente
+                <span class="limite-tempo" th:text="|${segundosEspera} segundos|">60 segundos</span>.
+            </p>
+            <div class="limite-acoes">
+                <a class="button" th:href="@{/app/chamados}">Tentar novamente</a>
+                <a class="button button-secondary" th:href="@{/}">Voltar ao início</a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

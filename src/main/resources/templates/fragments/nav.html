@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav th:fragment="menu">
+    <a class="brand" th:href="@{/}" aria-label="SimpliTicket — Dashboard"><img th:src="@{/img/logo-simpliticket.png}" alt="SimpliTicket"></a>
+    <a th:href="@{/}">Dashboard</a>
+    <a th:href="@{/app/clientes}">Clientes</a>
+    <a th:href="@{/app/categorias}">Categorias</a>
+    <a th:href="@{/app/tecnicos}">Técnicos</a>
+    <a th:href="@{/app/chamados}">Chamados</a>
+</nav>
+<div th:fragment="mensagens">
+    <p th:if="${sucesso}" th:text="${sucesso}" role="status"></p>
+    <p th:if="${erro}" th:text="${erro}" role="alert"></p>
+</div>
+</body>
+</html>
